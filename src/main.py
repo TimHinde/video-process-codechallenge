@@ -29,11 +29,10 @@ def ingest_data(conn: sa.Connection, timestamp: str, event_type: str):
     Ingests data into the database.
     """
     # Insert data into the database with atomic transaction
-    with conn.begin():
-        conn.execute(
-            sa.text("INSERT INTO events (time, type) VALUES (:time, :type)"),
-            {"time": timestamp, "type": event_type},
-        )
+    conn.execute(
+        sa.text("INSERT INTO events (time, type) VALUES (:time, :type)"),
+        {"time": timestamp, "type": event_type},
+    )
     # check if the data is inserted
     statement = select([events]).where(events.c.time == timestamp, events.c.type == event_type)
     result = conn.execute(statement)
