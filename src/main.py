@@ -34,8 +34,10 @@ def ingest_data(conn: sa.Connection, timestamp: str, event_type: str):
         {"time": timestamp, "type": event_type},
     )
     # check if the data is inserted
-    statement = select([events]).where(events.c.time == timestamp, events.c.type == event_type)
-    result = conn.execute(statement)
+    result = conn.execute(
+        sa.text("SELECT * FROM events WHERE time = :time AND type = :type"),
+        {"time": timestamp, "type": event_type},
+    )
     assert result.rowcount >= 1
 
 
