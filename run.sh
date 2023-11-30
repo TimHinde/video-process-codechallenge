@@ -2,4 +2,4 @@
 
 set -o errexit
 
-docker compose up --build
+docker-compose up -d

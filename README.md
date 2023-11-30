@@ -44,3 +44,18 @@ For example if we assume that the system has detected cars at the following time
 The last part is related to real-time alerts for unusual events. Our users would like to be notified if a person is detected for a continued period of time. Imagine that the ingestion function is called real-time as the detections happen every 30 seconds.
 
 Please add additional logic to the ingestion function which will print to the console if a person is detected in 5 consecutive events. Please consider performance - the ingestion function will be called very often.
+
+
+# Solution Notes
+## Event Class
+A SQLAlchemy model representing an "events" table in a relational database. The table has columns for an integer ID (primary key), a timestamp (time), and a string representing the event type (type).
+## EventService Class
+Class for handling services to do with events such as ingesting an event, retrieving and event and checking for consecutive people events.
+
+## Potential Improvements
+Seperation of monitoring into it's own service.
+Implementation of more complex monitoring logic, such as clustering pedestrian/people events to see if more than 5 happen within five minutes.
+
+## Running the code
+Set up a Postgres instance with username and password. configure the db_connection_string to the correct values and run the src/main.py 
+This will print outputs as per above to the console.
